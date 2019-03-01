@@ -1,1 +1,5 @@
-include ':app'
+include ':app', ':data', ':domain', ':map', ':carinfo', ':carslist'
+
+project(':carinfo').projectDir = new File(rootDir, 'presentation/carinfo')
+project(':map').projectDir = new File(rootDir, 'presentation/map')
+project(':carslist').projectDir = new File(rootDir, 'presentation/carslist')

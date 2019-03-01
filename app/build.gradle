@@ -1,34 +1,40 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion versions.targetSdkVersion
     defaultConfig {
         applicationId "me.vponomarenko.car.rent"
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode getVersionCode(versions.versionName)
+        versionName versions.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'androidx.core:core-ktx:1.1.0-alpha04'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    implementation appmodules.domain
+    implementation appmodules.data
+    implementation appmodules.presentation.map
+    implementation appmodules.presentation.carinfo
+    implementation appmodules.presentation.carslist
+
+    implementation deps.kotlin
+    implementation deps.appcompat
+}
+
+int getVersionCode(versionName) {
+    def (major, minor, patch) = versionName.toLowerCase().tokenize('.')
+    (major, minor, patch) = [major, minor, patch].collect{it.toInteger()}
+    return (major * 1000000) + (minor * 1000) + (patch * 10)
 }
