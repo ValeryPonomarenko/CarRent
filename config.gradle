@@ -6,6 +6,8 @@ def viewmodel_version = "2.0.0"
 def recyclerview_version = "1.0.0"
 def rxjava_version = "2.2.7"
 def rxandroid_version = "2.1.1"
+def retrofit_version = "2.5.0"
+def gson_version = "2.8.5"
 
 ext.deps = [
         kotlin           : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
@@ -17,7 +19,13 @@ ext.deps = [
         viewmodel        : "androidx.lifecycle:lifecycle-extensions:$viewmodel_version",
         recyclerview     : "androidx.recyclerview:recyclerview:$recyclerview_version",
         rxjava           : "io.reactivex.rxjava2:rxjava:$rxjava_version",
-        rxandroid        : "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+        rxandroid        : "io.reactivex.rxjava2:rxandroid:$rxandroid_version",
+        gson             : "com.google.code.gson:gson:$gson_version",
+        retrofit         : [
+                retrofit     : "com.squareup.retrofit2:retrofit:$retrofit_version",
+                adapterrxjava: "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
+                convertergson: "com.squareup.retrofit2:converter-gson:$retrofit_version"
+        ]
 ]
 
 ext.appmodules = [
