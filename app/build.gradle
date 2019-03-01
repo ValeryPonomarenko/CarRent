@@ -31,6 +31,7 @@ dependencies {
 
     implementation deps.kotlin
     implementation deps.appcompat
+    implementation deps.componentsmanager
 }
 
 int getVersionCode(versionName) {

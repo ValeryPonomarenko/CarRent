@@ -14,4 +14,4 @@ import javax.inject.Singleton
     dependencies = [DomainRepositoriesDeps::class],
     modules = [DomainModule::class]
 )
-interface DomainComponent : DomainAPI
+interface DomainComponent : DomainApi

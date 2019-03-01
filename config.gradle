@@ -32,7 +32,8 @@ ext.appmodules = [
         presentation: [
                 carinfo : project(':carinfo'),
                 carslist: project(':carslist'),
-                map     : project(':map')
+                map     : project(':map'),
+                common  : project(':common'),
         ],
         domain      : project(':domain'),
         data        : project(':data')

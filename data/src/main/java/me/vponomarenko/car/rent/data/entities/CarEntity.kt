@@ -1,7 +1,5 @@
 package me.vponomarenko.car.rent.data.entities
 
-import android.net.Uri
-
 /**
  * Author: Valery Ponomarenko
  * Date: 01/03/2019
@@ -24,5 +22,5 @@ internal data class CarEntity(
     val latitude: Float,
     val longitude: Float,
     val innerCleanliness: String,
-    val carImageUrl: Uri
+    val carImageUrl: String
 )

@@ -9,7 +9,7 @@ import me.vponomarenko.car.rent.domain.usecases.GetFullCarInfoUseCase
  * LinkedIn: https://www.linkedin.com/in/ponomarenkovalery
  */
 
-interface DomainAPI {
+interface DomainApi {
     fun getCarsUseCase(): GetCarsUseCase
     fun getFullCarInfoUseCase(): GetFullCarInfoUseCase
 }
