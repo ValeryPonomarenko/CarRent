@@ -2,7 +2,7 @@ package me.vponomarenko.car.rent
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import me.vponomarenko.car.rent.carslist.view.CarsListFragment
+import me.vponomarenko.car.rent.map.view.MapFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragmentContainer, CarsListFragment())
+                .replace(R.id.fragmentContainer, MapFragment())
                 .commit()
         }
     }

@@ -19,7 +19,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation appmodules.domain
+    implementation appmodules.presentation.common
 
     implementation deps.kotlin
     implementation deps.appcompat
+    implementation deps.viewmodel
+    implementation deps.dagger
+    kapt deps.daggercompiler
+    implementation deps.componentsmanager
+    implementation deps.rxjava
 }

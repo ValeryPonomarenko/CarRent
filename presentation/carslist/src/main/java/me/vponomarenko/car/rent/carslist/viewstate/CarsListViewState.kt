@@ -8,7 +8,7 @@ import me.vponomarenko.car.rent.domain.entities.CarInfo
  * LinkedIn: https://www.linkedin.com/in/ponomarenkovalery
  */
 
-sealed class CarsListViewState {
+internal sealed class CarsListViewState {
     object LOADING : CarsListViewState()
     data class Loaded(val carsList: List<CarInfo>) : CarsListViewState()
     data class Error(val error: String) : CarsListViewState()

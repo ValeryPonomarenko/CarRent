@@ -16,7 +16,7 @@ import javax.inject.Inject
  * LinkedIn: https://www.linkedin.com/in/ponomarenkovalery
  */
 
-class CarsListViewModel @Inject constructor(
+internal class CarsListViewModel @Inject constructor(
     @UiScheduler private val uiScheduler: Scheduler,
     private val getCarsUseCase: GetCarsUseCase
 ) : ViewModel() {
