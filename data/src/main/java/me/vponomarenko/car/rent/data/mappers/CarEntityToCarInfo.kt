@@ -13,5 +13,12 @@ import javax.inject.Inject
 internal class CarEntityToCarInfo @Inject constructor() {
     fun map(carEntities: List<CarEntity>): List<CarInfo> = carEntities.map(this::map)
 
-    private fun map(carEntity: CarEntity): CarInfo = CarInfo(carEntity.id)
+    private fun map(carEntity: CarEntity): CarInfo =
+        CarInfo(
+            id = carEntity.id,
+            modelName = carEntity.modelName,
+            latitude = carEntity.latitude,
+            longitude = carEntity.longitude,
+            carImageUrl = carEntity.carImageUrl
+        )
 }

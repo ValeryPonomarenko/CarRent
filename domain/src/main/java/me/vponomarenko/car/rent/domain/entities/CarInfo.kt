@@ -7,5 +7,9 @@ package me.vponomarenko.car.rent.domain.entities
  */
 
 open class CarInfo(
-    val id: String
+    val id: String,
+    val modelName: String,
+    val latitude: Float,
+    val longitude: Float,
+    val carImageUrl: String
 )

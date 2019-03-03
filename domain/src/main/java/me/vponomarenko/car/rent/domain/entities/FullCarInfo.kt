@@ -9,4 +9,4 @@ package me.vponomarenko.car.rent.domain.entities
 class FullCarInfo(
     id: String,
     val name: String
-) : CarInfo(id)
+) : CarInfo(id, "", 0f, 0f, "")

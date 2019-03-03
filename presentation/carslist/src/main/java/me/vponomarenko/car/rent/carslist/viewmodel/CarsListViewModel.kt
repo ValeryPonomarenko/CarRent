@@ -39,6 +39,10 @@ internal class CarsListViewModel @Inject constructor(
         disposable?.dispose()
     }
 
+    fun onCarClick(carId: String) {
+        carsListViewNavigation.openCarInfo(carId)
+    }
+
     fun goBack() {
         carsListViewNavigation.goBack()
     }

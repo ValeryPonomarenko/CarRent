@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_cars_list.*
 import me.vponomarenko.car.rent.carslist.R
 import me.vponomarenko.car.rent.carslist.di.CarsListComponent
+import me.vponomarenko.car.rent.carslist.recyclerview.CarsListAdapter
 import me.vponomarenko.car.rent.carslist.viewmodel.CarsListViewModel
 import me.vponomarenko.car.rent.carslist.viewstate.CarsListViewState
 import me.vponomarenko.car.rent.common.ToolbarDecorationConsumer
@@ -29,15 +31,14 @@ import javax.inject.Inject
 
 class CarsListFragment : Fragment(), IHasComponent<CarsListComponent> {
 
-    companion object {
-        private const val NEW_LINE = "\n"
-    }
-
     @Inject
     internal lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
     internal lateinit var toolbarDecorationConsumer: ToolbarDecorationConsumer
+
+    @Inject
+    internal lateinit var adapter: CarsListAdapter
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(CarsListViewModel::class.java)
@@ -54,10 +55,13 @@ class CarsListFragment : Fragment(), IHasComponent<CarsListComponent> {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTitle(R.string.cars_list_title)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+        adapter.onCarClickListener = viewModel::onCarClick
+
         viewModel.viewState.observe(this) {
             when (it) {
-                is CarsListViewState.Loaded ->
-                    text_carsList.text = it.carsList.joinToString(separator = NEW_LINE) { it.id }
+                is CarsListViewState.Loaded -> adapter.cars = it.carsList
             }
         }
         toolbarDecorationConsumer.decorate {
