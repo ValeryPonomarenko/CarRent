@@ -27,7 +27,16 @@ internal class CarsRepository @Inject constructor(
             .subscribeOn(ioScheduler)
             .map(carEntityToCarInfoMapper::map)
 
-    override fun getCarInfo(id: String): Single<FullCarInfo> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getCarInfo(id: String): Single<FullCarInfo> =
+        api.getCars()
+            .subscribeOn(ioScheduler)
+            .flatMap { cars ->
+                val car = cars.find { it.id == id }
+                return@flatMap if (car != null) {
+                    Single.just(car)
+                } else {
+                    Single.error(IllegalStateException("The car with id = $id was not found"))
+                }
+            }
+            .map(carEntityToFullCarInfoMapper::map)
 }

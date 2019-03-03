@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.fragment_car_info.*
 import me.vponomarenko.car.rent.carinfo.R
 import me.vponomarenko.car.rent.carinfo.di.CarInfoComponent
 import me.vponomarenko.car.rent.carinfo.viewmodel.CarInfoViewModel
+import me.vponomarenko.car.rent.carinfo.viewstate.CarInfoViewState
 import me.vponomarenko.car.rent.common.ToolbarDecorationConsumer
 import me.vponomarenko.car.rent.common.di.ViewModelFactory
 import me.vponomarenko.car.rent.common.disableToolbarBackButton
@@ -62,7 +64,9 @@ class CarInfoFragment : Fragment(), IHasComponent<CarInfoComponent> {
         super.onViewCreated(view, savedInstanceState)
         setTitle(R.string.car_info_title)
         viewModel.viewState.observe(this) {
-
+            when (it) {
+                is CarInfoViewState.Loaded -> text_full_car_info.text = it.car.toString()
+            }
         }
         toolbarDecorationConsumer.decorate {
             enableToolbarBackButton(this, viewModel::goBack)

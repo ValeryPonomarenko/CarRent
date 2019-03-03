@@ -9,7 +9,7 @@ import me.vponomarenko.car.rent.domain.entities.CarInfo
  */
 
 internal sealed class CarsListViewState {
-    object LOADING : CarsListViewState()
+    object Loading : CarsListViewState()
     data class Loaded(val carsList: List<CarInfo>) : CarsListViewState()
     data class Error(val error: String) : CarsListViewState()
 }

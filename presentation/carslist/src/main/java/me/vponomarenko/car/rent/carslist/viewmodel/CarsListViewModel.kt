@@ -48,7 +48,7 @@ internal class CarsListViewModel @Inject constructor(
     }
 
     private fun initLoading() {
-        _viewState.value = CarsListViewState.LOADING
+        _viewState.value = CarsListViewState.Loading
         disposable?.dispose()
         disposable =
             getCarsUseCase()

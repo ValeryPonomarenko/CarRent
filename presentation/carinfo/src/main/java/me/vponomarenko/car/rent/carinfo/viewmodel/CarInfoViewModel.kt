@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.Scheduler
+import io.reactivex.disposables.Disposable
 import me.vponomarenko.car.rent.carinfo.viewstate.CarInfoViewState
 import me.vponomarenko.car.rent.common.CommonViewNavigation
 import me.vponomarenko.car.rent.common.di.qualifiers.UiScheduler
@@ -28,7 +29,30 @@ internal class CarInfoViewModel @Inject constructor(
 
     private val _viewState = MutableLiveData<CarInfoViewState>()
 
+    private var disposable: Disposable? = null
+
+    init {
+        initLoading()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable?.dispose()
+    }
+
     fun goBack() {
         commonViewNavigation.goBack()
+    }
+
+    private fun initLoading() {
+        disposable?.dispose()
+        disposable =
+            getFullCarInfoUseCase(carId)
+                .observeOn(uiScheduler)
+                .subscribe({
+                    _viewState.value = CarInfoViewState.Loaded(it)
+                }, {
+
+                })
     }
 }

@@ -6,7 +6,7 @@ package me.vponomarenko.car.rent.domain.entities
  * LinkedIn: https://www.linkedin.com/in/ponomarenkovalery
  */
 
-open class CarInfo(
+data class CarInfo(
     val id: String,
     val modelName: String,
     val latitude: Float,

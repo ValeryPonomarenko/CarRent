@@ -15,11 +15,13 @@ import me.vponomarenko.injectionmanager.x.XInjectionManager
  * LinkedIn: https://www.linkedin.com/in/ponomarenkovalery
  */
 
+@Suppress("unused")
 class RentCarApp : Application(), IHasComponent<AppComponent> {
 
     override fun onCreate() {
         super.onCreate()
         with(XInjectionManager) {
+            init(this@RentCarApp)
             bindComponent(this@RentCarApp)
             bindComponent(object : IHasComponent<DataComponent> {
                 override fun getComponent() = DaggerDataComponent.create()
