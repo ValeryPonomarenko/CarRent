@@ -2,6 +2,9 @@ package me.vponomarenko.car.rent.di
 
 import dagger.Component
 import me.vponomarenko.car.rent.MainActivity
+import me.vponomarenko.car.rent.carinfo.di.CarInfoDeps
+import me.vponomarenko.car.rent.carslist.di.CarsListDeps
+import me.vponomarenko.car.rent.map.di.MapDeps
 import javax.inject.Singleton
 
 /**
@@ -14,7 +17,7 @@ import javax.inject.Singleton
 @Component(
     modules = [AppModule::class]
 )
-interface AppComponent {
+interface AppComponent : MapDeps, CarsListDeps, CarInfoDeps {
 
     companion object {
         fun init(): AppComponent = DaggerAppComponent.create()

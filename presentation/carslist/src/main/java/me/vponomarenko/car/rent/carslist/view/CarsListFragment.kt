@@ -11,8 +11,12 @@ import me.vponomarenko.car.rent.carslist.R
 import me.vponomarenko.car.rent.carslist.di.CarsListComponent
 import me.vponomarenko.car.rent.carslist.viewmodel.CarsListViewModel
 import me.vponomarenko.car.rent.carslist.viewstate.CarsListViewState
+import me.vponomarenko.car.rent.common.ToolbarDecorationConsumer
 import me.vponomarenko.car.rent.common.di.ViewModelFactory
+import me.vponomarenko.car.rent.common.disableToolbarBackButton
+import me.vponomarenko.car.rent.common.enableToolbarBackButton
 import me.vponomarenko.car.rent.common.observe
+import me.vponomarenko.car.rent.common.setTitle
 import me.vponomarenko.injectionmanager.IHasComponent
 import me.vponomarenko.injectionmanager.x.XInjectionManager
 import javax.inject.Inject
@@ -32,6 +36,9 @@ class CarsListFragment : Fragment(), IHasComponent<CarsListComponent> {
     @Inject
     internal lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    internal lateinit var toolbarDecorationConsumer: ToolbarDecorationConsumer
+
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(CarsListViewModel::class.java)
     }
@@ -46,12 +53,21 @@ class CarsListFragment : Fragment(), IHasComponent<CarsListComponent> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setTitle(R.string.cars_list_title)
         viewModel.viewState.observe(this) {
             when (it) {
                 is CarsListViewState.Loaded ->
                     text_carsList.text = it.carsList.joinToString(separator = NEW_LINE) { it.id }
             }
         }
+        toolbarDecorationConsumer.decorate {
+            enableToolbarBackButton(this, viewModel::goBack)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        toolbarDecorationConsumer.decorate(this::disableToolbarBackButton)
     }
 
     override fun getComponent() = CarsListComponent.init()

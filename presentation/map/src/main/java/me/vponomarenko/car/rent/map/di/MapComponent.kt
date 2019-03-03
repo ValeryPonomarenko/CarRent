@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [DomainApi::class],
+    dependencies = [DomainApi::class, MapDeps::class],
     modules = [MapModule::class]
 )
 interface MapComponent {
@@ -24,6 +24,7 @@ interface MapComponent {
             DaggerMapComponent
                 .builder()
                 .domainApi(XInjectionManager.findComponent())
+                .mapDeps(XInjectionManager.findComponent())
                 .build()
     }
 

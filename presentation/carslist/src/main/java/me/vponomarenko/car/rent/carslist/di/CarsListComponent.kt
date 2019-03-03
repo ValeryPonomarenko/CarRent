@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [DomainApi::class],
+    dependencies = [DomainApi::class, CarsListDeps::class],
     modules = [CarsListModule::class]
 )
 interface CarsListComponent {
@@ -23,6 +23,7 @@ interface CarsListComponent {
         fun init(): CarsListComponent =
             DaggerCarsListComponent.builder()
                 .domainApi(XInjectionManager.findComponent())
+                .carsListDeps(XInjectionManager.findComponent())
                 .build()
     }
 

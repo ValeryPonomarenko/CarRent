@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [DomainApi::class],
+    dependencies = [DomainApi::class, CarInfoDeps::class],
     modules = [CarInfoModule::class]
 )
 interface CarInfoComponent {
@@ -26,6 +26,7 @@ interface CarInfoComponent {
                 .builder()
                 .carId(carId)
                 .domainApi(XInjectionManager.findComponent())
+                .carInfoDeps(XInjectionManager.findComponent())
                 .build()
     }
 
@@ -35,6 +36,8 @@ interface CarInfoComponent {
         fun carId(id: String): Builder
 
         fun domainApi(domainApi: DomainApi): Builder
+
+        fun carInfoDeps(carInfoDeps: CarInfoDeps): Builder
 
         fun build(): CarInfoComponent
     }

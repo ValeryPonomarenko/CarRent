@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.Scheduler
 import me.vponomarenko.car.rent.carinfo.viewstate.CarInfoViewState
+import me.vponomarenko.car.rent.common.CommonViewNavigation
 import me.vponomarenko.car.rent.common.di.qualifiers.UiScheduler
 import me.vponomarenko.car.rent.domain.usecases.GetFullCarInfoUseCase
 import javax.inject.Inject
@@ -18,11 +19,16 @@ import javax.inject.Inject
 internal class CarInfoViewModel @Inject constructor(
     private val carId: String,
     @UiScheduler private val uiScheduler: Scheduler,
-    private val getFullCarInfoUseCase: GetFullCarInfoUseCase
+    private val getFullCarInfoUseCase: GetFullCarInfoUseCase,
+    private val commonViewNavigation: CommonViewNavigation
 ) : ViewModel() {
 
     val viewState: LiveData<CarInfoViewState>
         get() = _viewState
 
     private val _viewState = MutableLiveData<CarInfoViewState>()
+
+    fun goBack() {
+        commonViewNavigation.goBack()
+    }
 }

@@ -2,12 +2,16 @@ package me.vponomarenko.car.rent.map.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import me.vponomarenko.car.rent.common.di.ViewModelFactory
 import me.vponomarenko.car.rent.common.observe
+import me.vponomarenko.car.rent.common.setTitle
 import me.vponomarenko.car.rent.map.R
 import me.vponomarenko.car.rent.map.di.MapComponent
 import me.vponomarenko.car.rent.map.viewmodel.MapViewModel
@@ -33,6 +37,7 @@ class MapFragment : Fragment(), IHasComponent<MapComponent> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         XInjectionManager.bindComponent(this).inject(this)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -40,10 +45,25 @@ class MapFragment : Fragment(), IHasComponent<MapComponent> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setTitle(R.string.map_title)
         viewModel.viewState.observe(this) {
 
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_map, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.option_as_list -> {
+                viewModel.onCarsListClicked()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
 
     override fun getComponent() = MapComponent.init()
 

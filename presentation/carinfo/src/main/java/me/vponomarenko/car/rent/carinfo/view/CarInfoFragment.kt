@@ -9,8 +9,12 @@ import androidx.lifecycle.ViewModelProviders
 import me.vponomarenko.car.rent.carinfo.R
 import me.vponomarenko.car.rent.carinfo.di.CarInfoComponent
 import me.vponomarenko.car.rent.carinfo.viewmodel.CarInfoViewModel
+import me.vponomarenko.car.rent.common.ToolbarDecorationConsumer
 import me.vponomarenko.car.rent.common.di.ViewModelFactory
+import me.vponomarenko.car.rent.common.disableToolbarBackButton
+import me.vponomarenko.car.rent.common.enableToolbarBackButton
 import me.vponomarenko.car.rent.common.observe
+import me.vponomarenko.car.rent.common.setTitle
 import me.vponomarenko.injectionmanager.IHasComponent
 import me.vponomarenko.injectionmanager.x.XInjectionManager
 import javax.inject.Inject
@@ -35,6 +39,9 @@ class CarInfoFragment : Fragment(), IHasComponent<CarInfoComponent> {
     @Inject
     internal lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    internal lateinit var toolbarDecorationConsumer: ToolbarDecorationConsumer
+
     private val carId: String by lazy {
         arguments?.getString(EXTRA_CAR_ID) ?: throw IllegalStateException("carId is null")
     }
@@ -53,9 +60,18 @@ class CarInfoFragment : Fragment(), IHasComponent<CarInfoComponent> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setTitle(R.string.car_info_title)
         viewModel.viewState.observe(this) {
 
         }
+        toolbarDecorationConsumer.decorate {
+            enableToolbarBackButton(this, viewModel::goBack)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        toolbarDecorationConsumer.decorate(this::disableToolbarBackButton)
     }
 
     override fun getComponent() = CarInfoComponent.init(carId)

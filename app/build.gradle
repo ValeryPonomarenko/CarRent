@@ -25,6 +25,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation appmodules.domain
     implementation appmodules.data
+    implementation appmodules.presentation.common
     implementation appmodules.presentation.map
     implementation appmodules.presentation.carinfo
     implementation appmodules.presentation.carslist
