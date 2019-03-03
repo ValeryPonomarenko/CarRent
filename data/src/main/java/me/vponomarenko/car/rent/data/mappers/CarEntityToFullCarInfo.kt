@@ -1,7 +1,6 @@
 package me.vponomarenko.car.rent.data.mappers
 
 import me.vponomarenko.car.rent.data.entities.CarEntity
-import me.vponomarenko.car.rent.domain.entities.CarInfo
 import me.vponomarenko.car.rent.domain.entities.FullCarInfo
 import javax.inject.Inject
 
@@ -12,7 +11,14 @@ import javax.inject.Inject
  */
 
 internal class CarEntityToFullCarInfo @Inject constructor() {
-    fun map(carEntities: List<CarEntity>): List<CarInfo> = carEntities.map(this::map)
+    fun map(carEntities: List<CarEntity>): List<FullCarInfo> = carEntities.map(this::map)
 
-    private fun map(carEntity: CarEntity): FullCarInfo = FullCarInfo(carEntity.id, carEntity.name)
+    private fun map(carEntity: CarEntity): FullCarInfo =
+        FullCarInfo(
+            id = carEntity.id,
+            modelName = carEntity.modelName,
+            latitude = carEntity.latitude,
+            longitude = carEntity.longitude,
+            carImageUrl = carEntity.carImageUrl
+        )
 }
