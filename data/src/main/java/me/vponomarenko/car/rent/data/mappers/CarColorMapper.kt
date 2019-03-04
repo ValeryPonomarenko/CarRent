@@ -1,5 +1,6 @@
 package me.vponomarenko.car.rent.data.mappers
 
+import android.graphics.Color
 import javax.inject.Inject
 
 /**
@@ -9,5 +10,21 @@ import javax.inject.Inject
  */
 
 class CarColorMapper @Inject constructor() {
-    fun map(color: String): Int = 0
+
+    private val colors = arrayOf(
+        Color.BLACK,
+        Color.BLUE,
+        Color.CYAN,
+        Color.DKGRAY,
+        Color.GREEN,
+        Color.LTGRAY,
+        Color.MAGENTA,
+        Color.RED,
+        Color.YELLOW
+    )
+
+    fun map(color: String): Int {
+        val colorIndex = color.getOrElse(0) { 'a' }.toInt() % colors.size
+        return colors[colorIndex]
+    }
 }

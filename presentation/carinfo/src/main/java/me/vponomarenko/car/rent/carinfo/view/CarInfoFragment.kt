@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_car_info.*
 import me.vponomarenko.car.rent.carinfo.R
 import me.vponomarenko.car.rent.carinfo.di.CarInfoComponent
@@ -18,6 +19,7 @@ import me.vponomarenko.car.rent.common.enableToolbarBackButton
 import me.vponomarenko.car.rent.common.observe
 import me.vponomarenko.car.rent.common.setTitle
 import me.vponomarenko.car.rent.common.showToast
+import me.vponomarenko.car.rent.domain.entities.FullCarInfo
 import me.vponomarenko.injectionmanager.IHasComponent
 import me.vponomarenko.injectionmanager.x.XInjectionManager
 import javax.inject.Inject
@@ -66,7 +68,7 @@ class CarInfoFragment : Fragment(), IHasComponent<CarInfoComponent> {
         setTitle(R.string.car_info_title)
         viewModel.viewState.observe(this) {
             when (it) {
-                is CarInfoViewState.Loaded -> text_full_car_info.text = it.car.toString()
+                is CarInfoViewState.Loaded -> showCarInfo(it.car)
                 is CarInfoViewState.Loading -> { /* show loading */ }
                 is CarInfoViewState.Error -> showToast(it.error)
             }
@@ -82,4 +84,19 @@ class CarInfoFragment : Fragment(), IHasComponent<CarInfoComponent> {
     }
 
     override fun getComponent() = CarInfoComponent.init(carId)
+
+    private fun showCarInfo(car: FullCarInfo) {
+        Glide.with(image_carPhoto)
+            .load(car.carImageUrl)
+            .placeholder(R.drawable.ic_car_orange)
+            .into(image_carPhoto)
+        text_carModel.text = car.modelName
+        text_name.text = car.name
+        text_fuelType.text = car.fuelType.name
+        text_fuelLevel.text = car.fuelLevel.toString()
+        text_transmission.text = car.transmission.name
+        text_licencePlate.text = car.licensePlate
+        text_innerCleanliness.text = car.innerCleanliness.name
+        view_carColor.setBackgroundColor(car.color)
+    }
 }

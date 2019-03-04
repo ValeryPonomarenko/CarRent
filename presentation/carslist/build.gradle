@@ -34,5 +34,5 @@ dependencies {
     implementation deps.rxjava
     implementation deps.recyclerview
     implementation deps.glide
-    kapt deps.glidercompiler
+    kapt deps.glidecompiler
 }

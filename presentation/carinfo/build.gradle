@@ -29,4 +29,7 @@ dependencies {
     kapt deps.daggercompiler
     implementation deps.componentsmanager
     implementation deps.rxjava
+    implementation deps.constraintlayout
+    implementation deps.glide
+    kapt deps.glidecompiler
 }
