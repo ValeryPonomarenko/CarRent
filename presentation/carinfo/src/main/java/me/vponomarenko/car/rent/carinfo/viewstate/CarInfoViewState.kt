@@ -11,4 +11,5 @@ import me.vponomarenko.car.rent.domain.entities.FullCarInfo
 internal sealed class CarInfoViewState {
     object Loading : CarInfoViewState()
     data class Loaded(val car: FullCarInfo) : CarInfoViewState()
+    data class Error(val error: String) : CarInfoViewState()
 }

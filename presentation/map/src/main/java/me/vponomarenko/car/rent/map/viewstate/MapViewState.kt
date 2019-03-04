@@ -11,5 +11,5 @@ import me.vponomarenko.car.rent.domain.entities.CarInfo
 sealed class MapViewState {
     object Loading : MapViewState()
     data class Loaded(val cars: List<CarInfo>) : MapViewState()
-    data class Error(val message: String) : MapViewState()
+    data class Error(val error: String) : MapViewState()
 }

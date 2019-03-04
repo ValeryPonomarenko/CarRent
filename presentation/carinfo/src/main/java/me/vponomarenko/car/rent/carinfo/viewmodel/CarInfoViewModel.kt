@@ -52,7 +52,7 @@ internal class CarInfoViewModel @Inject constructor(
                 .subscribe({
                     _viewState.value = CarInfoViewState.Loaded(it)
                 }, {
-
+                    _viewState.value = CarInfoViewState.Error(it.toString())
                 })
     }
 }

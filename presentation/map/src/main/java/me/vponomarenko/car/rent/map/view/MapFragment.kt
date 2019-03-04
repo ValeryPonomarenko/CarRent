@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import me.vponomarenko.car.rent.common.di.ViewModelFactory
 import me.vponomarenko.car.rent.common.observe
 import me.vponomarenko.car.rent.common.setTitle
+import me.vponomarenko.car.rent.common.showToast
 import me.vponomarenko.car.rent.domain.entities.CarInfo
 import me.vponomarenko.car.rent.map.R
 import me.vponomarenko.car.rent.map.di.MapComponent
@@ -75,6 +76,8 @@ class MapFragment : Fragment(), IHasComponent<MapComponent> {
         viewModel.viewState.observe(viewLifecycleOwner) {
             when (it) {
                 is MapViewState.Loaded -> drawCars(it.cars)
+                is MapViewState.Loading -> { /* show loading */ }
+                is MapViewState.Error -> showToast(it.error)
             }
         }
     }

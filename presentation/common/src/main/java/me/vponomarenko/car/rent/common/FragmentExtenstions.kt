@@ -1,5 +1,6 @@
 package me.vponomarenko.car.rent.common
 
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -31,4 +32,8 @@ fun Fragment.disableToolbarBackButton(toolbar: Toolbar) {
         setDisplayShowHomeEnabled(false)
         toolbar.setNavigationOnClickListener(null)
     }
+}
+
+fun Fragment.showToast(text: String) {
+    Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
 }

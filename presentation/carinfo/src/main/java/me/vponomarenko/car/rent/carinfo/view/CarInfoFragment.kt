@@ -17,6 +17,7 @@ import me.vponomarenko.car.rent.common.disableToolbarBackButton
 import me.vponomarenko.car.rent.common.enableToolbarBackButton
 import me.vponomarenko.car.rent.common.observe
 import me.vponomarenko.car.rent.common.setTitle
+import me.vponomarenko.car.rent.common.showToast
 import me.vponomarenko.injectionmanager.IHasComponent
 import me.vponomarenko.injectionmanager.x.XInjectionManager
 import javax.inject.Inject
@@ -66,6 +67,8 @@ class CarInfoFragment : Fragment(), IHasComponent<CarInfoComponent> {
         viewModel.viewState.observe(this) {
             when (it) {
                 is CarInfoViewState.Loaded -> text_full_car_info.text = it.car.toString()
+                is CarInfoViewState.Loading -> { /* show loading */ }
+                is CarInfoViewState.Error -> showToast(it.error)
             }
         }
         toolbarDecorationConsumer.decorate {
