@@ -6,7 +6,10 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import me.vponomarenko.car.rent.common.di.SchedulerModule
 import me.vponomarenko.car.rent.common.di.ViewModelKey
+import me.vponomarenko.car.rent.map.utils.GeoPointMapper
+import me.vponomarenko.car.rent.map.utils.MapIconFactory
 import me.vponomarenko.car.rent.map.viewmodel.MapViewModel
+import javax.inject.Singleton
 
 /**
  * Author: Valery Ponomarenko
@@ -20,4 +23,14 @@ internal class MapModule {
     @IntoMap
     @ViewModelKey(MapViewModel::class)
     fun provideViewModel(viewModel: MapViewModel): ViewModel = viewModel
+
+    @Singleton
+    @Provides
+    fun provideGeoPointMapper(): GeoPointMapper =
+        GeoPointMapper()
+
+    @Singleton
+    @Provides
+    fun provideMapIconFactory(geoPointMapper: GeoPointMapper): MapIconFactory =
+        MapIconFactory(geoPointMapper)
 }

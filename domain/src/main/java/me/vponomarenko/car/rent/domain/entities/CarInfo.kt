@@ -9,6 +9,7 @@ package me.vponomarenko.car.rent.domain.entities
 data class CarInfo(
     val id: String,
     val modelName: String,
+    val name: String,
     val latitude: Float,
     val longitude: Float,
     val carImageUrl: String

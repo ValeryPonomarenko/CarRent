@@ -17,6 +17,7 @@ internal class CarEntityToCarInfo @Inject constructor() {
         CarInfo(
             id = carEntity.id,
             modelName = carEntity.modelName,
+            name = carEntity.name,
             latitude = carEntity.latitude,
             longitude = carEntity.longitude,
             carImageUrl = carEntity.carImageUrl
